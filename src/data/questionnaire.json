@@ -1,0 +1,89 @@
+{
+  "data": [
+    {
+      "question": "IRON MAN: What song plays at the beginning of the movie?",
+      "choices": [
+        "Iron Man by Black Sabbath",
+        "Back in Black by AC/DC",
+        "Ordinary World by Duran Duran",
+        "Stairway to Heaven by Led Zeppelin"
+      ],
+      "answer": "Back in Black by AC/DC"
+    },
+    {
+      "question": "THE INCREDIBLE HULK: What does Tony tell Thaddeus Ross at the end of the film?",
+      "choices": [
+        "That he wants to study The Hulk",
+        "That he knows about S.H.I.E.L.D",
+        "That they're putting team together",
+        "That Thaddeus owes him money"
+      ],
+      "answer": "That they're putting team together"
+    },
+    {
+      "question": "IRON MAN 2: What fake name does Natasha use when she first meets Tony?",
+      "choices": [
+        "Natalie Rushman",
+        "Natalia Romanoff",
+        "Nicole Rohan",
+        "Naya Rabe"
+      ],
+      "answer": "Natalie Rushman"
+    },
+    {
+      "question": "THOR: What does Thor want <another> of when he's in the diner?",
+      "choices": [
+        "A slice of pie",
+        "A piece of toast",
+        "A cup of coffee",
+        "Coca-Cola"
+      ],
+      "answer": "A cup of coffee"
+    },
+    {
+      "question": "CAPTAIN AMERICA: THE FIRST AVENGER: Where does Peggy tell Steve she wants to meet him for a dance, before he plunges into the ice?",
+      "choices": [
+        "The Cotton club",
+        "The Stork Club",
+        "El Morocco",
+        "The Copacabana"
+      ],
+      "answer": "The Stork Club"
+    },
+    {
+      "question": "AVENGERS: AGE OF ULTRON: What word does Tony utter that makes Steve say, <Language>?",
+      "choices": ["Crap!", "Asshole!", "Shit!", "Idiot!"],
+      "answer": "Shit!"
+    },
+    {
+      "question": "IRON MAN: What song plays at the beginning of the movie?",
+      "choices": [
+        "On Vormir",
+        "In a vault on Asgard",
+        "Inside Sif'sword",
+        "The gave it to the collector"
+      ],
+      "answer": "The gave it to the collector"
+    },
+    {
+      "question": "CAPTAIN AMERICA: CIVIL WAR: Who ISN'T on Iron Man's team?",
+      "choices": ["Vision", "Black Panter", "Hawkeye", "Black Widow"],
+      "answer": "Hawkeye"
+    },
+    {
+      "question": "DOCTOR STRANGE: What type of doctor is Stephen Strange?",
+      "choices": [
+        "Neurosurgeon",
+        "Trauma Surgeon",
+        "Plastic Surgeon",
+        "Cardiothoracic Surgeon"
+      ],
+      "answer": "Neurosurgeon"
+    },
+    {
+      "question": "GUARDIANS OF THE GALAXY VOL. 2: Finish this line: I'm _______, y'all!",
+      "choices": ["Superman", "Underlog", "Peter Pan", "Mary Poppins"],
+      "answer": "Mary Poppins"
+    }
+  ]
+}

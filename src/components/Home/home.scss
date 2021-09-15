@@ -1,0 +1,28 @@
+.home {
+  display: flex;
+  border: 2px solid rgb(202, 137, 228);
+  background-color: antiquewhite;
+
+  .content {
+    text-align: center;
+
+    font-size: 15px;
+    color: rgb(72, 3, 161);
+  }
+  button {
+    width: auto;
+    height: 7vh;
+    color: rgb(24, 2, 43);
+    background-color: rgb(215, 203, 228);
+    border: 1px solid blueviolet;
+    border-radius: 4px;
+
+    &:hover {
+      transition-duration: 0.4s;
+      color: white;
+      border: none;
+      box-shadow: 0 5px 7px 0 rgba(0, 0, 0, 0.24),
+        0 5px 7px 0 rgba(0, 0, 0, 0.19);
+    }
+  }
+}

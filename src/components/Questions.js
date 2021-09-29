@@ -4,6 +4,7 @@ const Questions = ({ data, onAnswerUpdate, numberOfQuestions, activeQuestion, on
   const [selected, setSelected] = useState('');
   const [error, setError] = useState('');
   const radiosWrapper = useRef();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const findCheckedInput = radiosWrapper.current.querySelector('input:checked');
@@ -19,10 +20,12 @@ const Questions = ({ data, onAnswerUpdate, numberOfQuestions, activeQuestion, on
     }
   }
   
-  const nextClickHandler = (e) => {
+  const nextClickHandler = async(e) => {
     if(selected === '') {
       return setError('Please select one option!');
     }
+    setLoading(true);
+    await fetch("/").then(() => {
     onAnswerUpdate(prevState => [...prevState, { q: data.question, a: selected }]);
     setSelected('');
     if(activeQuestion < numberOfQuestions - 1) {
@@ -30,6 +33,8 @@ const Questions = ({ data, onAnswerUpdate, numberOfQuestions, activeQuestion, on
     }else {
       onSetStep(3);
     }
+    });
+    setLoading(false);
   }
 
   return(
@@ -44,7 +49,7 @@ const Questions = ({ data, onAnswerUpdate, numberOfQuestions, activeQuestion, on
             ))}
           </div>
           {error && <div className="errortext">{error}</div>}
-          <button className="buttonnext" onClick={nextClickHandler}>Next question</button>
+      <button className="buttonnext" onClick={nextClickHandler}>{ loading ? ("Loding...") : ("Next Question")}</button>
       </div>
   );
 }

@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 
 const Questions = ({ data, onAnswerUpdate, numberOfQuestions, activeQuestion, onSetActiveQuestion, onSetStep }) => {
@@ -20,21 +21,22 @@ const Questions = ({ data, onAnswerUpdate, numberOfQuestions, activeQuestion, on
     }
   }
   
-  const nextClickHandler = async(e) => {
-    if(selected === '') {
+  const nextClickHandler = (e) => {
+    if (selected === '') {
       return setError('Please select one option!');
     }
-    setLoading(true);
-    await fetch("/").then(() => {
-    onAnswerUpdate(prevState => [...prevState, { q: data.question, a: selected }]);
+    setLoading(true)
+    setTimeout(() => {
+      setLoading(false);
+       onAnswerUpdate(prevState => [...prevState, { q: data.question, a: selected }]);
     setSelected('');
-    if(activeQuestion < numberOfQuestions - 1) {
+    if (activeQuestion < numberOfQuestions - 1) {
       onSetActiveQuestion(activeQuestion + 1);
-    }else {
+    } else {
       onSetStep(3);
     }
-    });
-    setLoading(false);
+    }, 2000)
+   
   }
 
   return(

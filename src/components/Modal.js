@@ -5,7 +5,7 @@ const Modal = ({ onClose, results, data }) => {
     <div className="modalpanel">
       <div className="modalbackground" onClick={onClose}></div>
         <header className="modalheader">
-          <h2 className="modal-card-title">Your answers</h2>
+          <h2 className="modaltitle">Your answers</h2>
         </header>
         <section className="modalcontent">
           <ul>

@@ -131,7 +131,9 @@ body,
   .modalpanel {
     text-align: justify;
     font-size: 1vw;
-
+    .modalbackground {
+      width: fit-content;
+    }
     .correct {
       background-color: rgb(0, 139, 93);
     }

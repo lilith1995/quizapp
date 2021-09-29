@@ -8,9 +8,9 @@ body,
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100%;
-  background: url("./assets/marvelpic.jpg") no-repeat 45%;
+  background: url("./assets/marvelpic.jpg") no-repeat;
   background-size: cover;
+  min-height: 100%;
 
   .homepanel {
     text-align: center;
@@ -131,8 +131,24 @@ body,
   .modalpanel {
     text-align: justify;
     font-size: 1vw;
-    .modalbackground {
-      width: fit-content;
+
+    .buttondelete {
+      width: min-content;
+      height: min-content;
+      background-color: #0c1532;
+      color: cadetblue;
+      border-radius: 4px;
+      border: none;
+      color: #fff;
+      text-align: center;
+      padding: 16px;
+      transition: all 0.2s;
+      cursor: pointer;
+      box-shadow: 0 10px 20px -8px rgba(0, 0, 0, 0.7);
+      &:hover {
+        color: #001f3f;
+        background-color: #fff;
+      }
     }
     .correct {
       background-color: rgb(0, 139, 93);
@@ -140,5 +156,13 @@ body,
     .incorrect {
       background-color: rgb(139, 0, 0);
     }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .App {
+    background: url("./assets/marvelpic.jpg") no-repeat 45% top;
+    background-size: cover;
+    min-height: 50%;
   }
 }

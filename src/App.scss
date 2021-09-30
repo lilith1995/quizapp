@@ -60,6 +60,22 @@ body,
     display: flex;
     flex-direction: column;
 
+    .progressbar {
+      width: 100%;
+      height: 20px;
+      margin: 8px auto;
+      background: #f0f5f9;
+      border-radius: 20px;
+      box-shadow: inset 0 0 5px #000;
+
+      .innerbar {
+        height: 100%;
+        background: #395785;
+        border-radius: inherit;
+        transition: width 0.2s ease-in;
+      }
+    }
+
     h2 {
       width: fit-content;
       background-color: #0c1532;

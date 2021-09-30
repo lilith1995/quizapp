@@ -1,7 +1,9 @@
 
 import React, { useState, useEffect, useRef } from 'react';
+import ProgressBar from './ProgressBar';
 
 const Questions = ({ data, onAnswerUpdate, numberOfQuestions, activeQuestion, onSetActiveQuestion, onSetStep }) => {
+  let [percentRange, setProgress] = useState(0);
   const [selected, setSelected] = useState('');
   const [error, setError] = useState('');
   const radiosWrapper = useRef();
@@ -29,7 +31,8 @@ const Questions = ({ data, onAnswerUpdate, numberOfQuestions, activeQuestion, on
     setTimeout(() => {
       setLoading(false);
        onAnswerUpdate(prevState => [...prevState, { q: data.question, a: selected }]);
-    setSelected('');
+      setSelected('');
+     setProgress(percentRange < 100 ? percentRange + 10 : 100)
     if (activeQuestion < numberOfQuestions - 1) {
       onSetActiveQuestion(activeQuestion + 1);
     } else {
@@ -41,6 +44,7 @@ const Questions = ({ data, onAnswerUpdate, numberOfQuestions, activeQuestion, on
 
   return(
     <div className="questionspanel">
+      <ProgressBar percentRange={percentRange}/>
           <h2 className="question">{data.question}</h2>
           <div className="control" ref={radiosWrapper}>
             {data.choices.map((choice, i) => (
@@ -51,7 +55,7 @@ const Questions = ({ data, onAnswerUpdate, numberOfQuestions, activeQuestion, on
             ))}
           </div>
           {error && <div className="errortext">{error}</div>}
-      <button className="buttonnext" onClick={nextClickHandler}>{ loading ? ("Loding...") : ("Next Question")}</button>
+      <button className="buttonnext" onClick={nextClickHandler}>{ loading ? ("Loading...") : ("Next Question")}</button>
       </div>
   );
 }

@@ -37,7 +37,7 @@ const Questions = ({ data, onAnswerUpdate, numberOfQuestions, activeQuestion, on
     } else {
       onSetStep(3);
       }
-      },)
+      },1000)
   }
 
   return(

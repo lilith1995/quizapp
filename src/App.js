@@ -6,7 +6,7 @@ import End from './components/End';
 import Modal from './components/Modal';
 
 import './App.scss';
-import questionnaire from './data/questionnaire.json';
+
 
 
 const App = () => {
@@ -14,6 +14,19 @@ const App = () => {
   const [activeQuestion, setActiveQuestion] = useState(0);
   const [answers, setAnswers] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [input , setInput]=useState(null)
+
+  
+  fetch("./questionnaire.json").then(
+    function(res){
+    return res.json()
+  }).then(function(input){
+    setInput(input)
+  }).catch(
+    function(err){
+      console.log(err, ' error')
+    }
+  )
 
   const quizStartHandler = () => {
     setStep(2);
@@ -29,16 +42,16 @@ const App = () => {
     <div className="App">
       {step === 1 && <Home onQuizStart={quizStartHandler} />}
       {step === 2 && <Questions 
-        data={questionnaire.data[activeQuestion]}
+        data={input.data[activeQuestion]}
         onAnswerUpdate={setAnswers}
-        numberOfQuestions={questionnaire.data.length}
+        numberOfQuestions={input.data.length}
         activeQuestion={activeQuestion}
         onSetActiveQuestion={setActiveQuestion}
         onSetStep={setStep}
       />}
       {step === 3 && <End 
         results={answers}
-        data={questionnaire.data}
+        data={input.data}
         onReset={resetClickHandler}
         onAnswersCheck={() => setShowModal(true)}
       />}
@@ -46,7 +59,7 @@ const App = () => {
       {showModal && <Modal 
         onClose={() => setShowModal(false)}
         results={answers}
-        data={questionnaire.data}
+        data={input.data}
       />}
     </div>
   );

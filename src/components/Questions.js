@@ -12,7 +12,7 @@ const Questions = ({ data, onAnswerUpdate, numberOfQuestions, activeQuestion, on
   useEffect(() => {
     const findCheckedInput = radiosWrapper.current.querySelector('input:checked');
     if(findCheckedInput) {
-      findCheckedInput.checked = false;
+      findCheckedInput.checked = true;
     }
   }, [data]);
 
@@ -31,15 +31,13 @@ const Questions = ({ data, onAnswerUpdate, numberOfQuestions, activeQuestion, on
     setTimeout(() => {
       setLoading(false);
        onAnswerUpdate(prevState => [...prevState, { q: data.question, a: selected }]);
-      setSelected('');
      setProgress(percentRange < 100 ? percentRange + 10 : 100)
     if (activeQuestion < numberOfQuestions - 1) {
       onSetActiveQuestion(activeQuestion + 1);
     } else {
       onSetStep(3);
-    }
-    }, 2000)
-   
+      }
+      },)
   }
 
   return(

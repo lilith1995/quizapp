@@ -14,7 +14,7 @@ const App = () => {
   const [activeQuestion, setActiveQuestion] = useState(0);
   const [answers, setAnswers] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const [input , setInput]=useState(null)
+  const [input, setInput] = useState(null);
 
   
   fetch("./questionnaire.json").then(

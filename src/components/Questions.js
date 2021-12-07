@@ -9,12 +9,7 @@ const Questions = ({ data, onAnswerUpdate, numberOfQuestions, activeQuestion, on
   const radiosWrapper = useRef();
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    const findCheckedInput = radiosWrapper.current.querySelector('input:checked');
-    if(findCheckedInput) {
-      findCheckedInput.checked = true;
-    }
-  }, [data]);
+
 
   const changeHandler = (e) => {
     setSelected(e.target.value);
@@ -29,13 +24,14 @@ const Questions = ({ data, onAnswerUpdate, numberOfQuestions, activeQuestion, on
     }
     setLoading(true)
     setTimeout(() => {
+      onAnswerUpdate(prevState => [...prevState, { q: data.question, a: selected }]);
       setLoading(false);
-       onAnswerUpdate(prevState => [...prevState, { q: data.question, a: selected }]);
      setProgress(percentRange < 100 ? percentRange + 10 : 100)
     if (activeQuestion < numberOfQuestions - 1) {
       onSetActiveQuestion(activeQuestion + 1);
     } else {
       onSetStep(3);
+      setSelected(false);
       }
       },1000)
   }
@@ -47,7 +43,7 @@ const Questions = ({ data, onAnswerUpdate, numberOfQuestions, activeQuestion, on
           <div className="control" ref={radiosWrapper}>
             {data.choices.map((choice, i) => (
               <label className="radio" key={i}>
-                <input type="radio" name="answer" value={choice} onChange={changeHandler} />
+                <input type="radio" name="answer" value={choice} checked={choice === selected} onChange ={changeHandler} />
                 {choice}
               </label>
             ))}

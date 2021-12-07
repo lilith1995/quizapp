@@ -1,35 +1,42 @@
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ProgressBar from './ProgressBar';
 
 const Questions = ({ data, onAnswerUpdate, numberOfQuestions, activeQuestion, onSetActiveQuestion, onSetStep }) => {
   let [percentRange, setProgress] = useState(0);
-  const [selected, setSelected] = useState('');
+  const [checked, setChecked] = useState('');
   const [error, setError] = useState('');
   const radiosWrapper = useRef();
   const [loading, setLoading] = useState(false);
 
+   useEffect(() => {
+    const findCheckedInput = radiosWrapper.current.querySelector('input:checked');
+    if(findCheckedInput) {
+      findCheckedInput.checked = false;
+    }
+  }, [data]);
+
   const changeHandler = (e) => {
-    setSelected(e.target.value);
+    setChecked(e.target.value);
     if (error) {
       setError('');
     }
   };
   
   const nextClickHandler = (e) => {
-    if (selected === '') {
+    if (checked === '') {
       return setError('Please select one option!');
     }
     setLoading(true)
     setTimeout(() => {
-      onAnswerUpdate(prevState => [...prevState, { q: data.question, a: selected }]);
       setLoading(false);
+      onAnswerUpdate(prevState => [...prevState, { q: data.question, a: checked }]);
+      setChecked('');
      setProgress(percentRange < 100 ? percentRange + 10 : 100)
     if (activeQuestion < numberOfQuestions - 1) {
       onSetActiveQuestion(activeQuestion + 1);
     } else {
       onSetStep(3);
-      setSelected(false);
       }
       },3000)
   }
@@ -41,7 +48,7 @@ const Questions = ({ data, onAnswerUpdate, numberOfQuestions, activeQuestion, on
           <div className="control" ref={radiosWrapper}>
             {data.choices.map((choice, i) => (
               <label className="radio" key={i}>
-                <input type="radio" name="answer" value={choice} checked={choice === selected} onChange ={changeHandler} />
+                <input type="radio" name="answer" value={choice} onChange ={changeHandler} />
                 {choice}
               </label>
             ))}

@@ -12,31 +12,29 @@ const App = () => {
   const [activeQuestion, setActiveQuestion] = useState(0);
   const [answers, setAnswers] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const [input, setInput] = useState(null);
+  const [input, setInput] = useState([]);
 
-  const getData = () => {
+const getData=()=>{
     fetch("./questionnaire.json"
-      , {
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        }
-      }
+    ,{
+      headers : { 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+       }
+    }
     )
-      .then(function (response) {
+      .then(function(response){
         console.log(response)
         return response.json();
       })
-      .then(function (input) {
-        setInput(input)
-      }).catch(
-        function (err) {
-          console.log(err, 'error')
-        })
+      .then(function(myJson) {
+        console.log(myJson);
+        setInput(myJson)
+      });
   }
-  useEffect(() => {
+  useEffect(()=>{
     getData()
-  }, []);
+  },[])
 
   const quizStartHandler = () => {
     setStep(2);

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Home from "./components/Home";
 import Questions from "./components/Questions";
@@ -7,8 +7,6 @@ import Modal from './components/Modal';
 
 import './App.scss';
 
-
-
 const App = () => {
   const [step, setStep] = useState(1);
   const [activeQuestion, setActiveQuestion] = useState(0);
@@ -16,17 +14,29 @@ const App = () => {
   const [showModal, setShowModal] = useState(false);
   const [input, setInput] = useState(null);
 
-  
-  fetch("./questionnaire.json").then(
-    function(res){
-    return res.json()
-  }).then(function(input){
-    setInput(input)
-  }).catch(
-    function(err){
-      console.log(err, ' error')
-    }
-  )
+  const getData = () => {
+    fetch("./questionnaire.json"
+      , {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        }
+      }
+    )
+      .then(function (response) {
+        console.log(response)
+        return response.json();
+      })
+      .then(function (input) {
+        setInput(input)
+      }).catch(
+        function (err) {
+          console.log(err, 'error')
+        })
+  }
+  useEffect(() => {
+    getData()
+  }, []);
 
   const quizStartHandler = () => {
     setStep(2);
@@ -64,6 +74,5 @@ const App = () => {
     </div>
   );
 }
-
 
 export default App;

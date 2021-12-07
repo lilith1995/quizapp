@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import ProgressBar from './ProgressBar';
 
 const Questions = ({ data, onAnswerUpdate, numberOfQuestions, activeQuestion, onSetActiveQuestion, onSetStep }) => {
@@ -9,14 +9,12 @@ const Questions = ({ data, onAnswerUpdate, numberOfQuestions, activeQuestion, on
   const radiosWrapper = useRef();
   const [loading, setLoading] = useState(false);
 
-
-
   const changeHandler = (e) => {
     setSelected(e.target.value);
-    if(error) {
+    if (error) {
       setError('');
     }
-  }
+  };
   
   const nextClickHandler = (e) => {
     if (selected === '') {
@@ -33,7 +31,7 @@ const Questions = ({ data, onAnswerUpdate, numberOfQuestions, activeQuestion, on
       onSetStep(3);
       setSelected(false);
       }
-      },1000)
+      },3000)
   }
 
   return(

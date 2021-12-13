@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Modal = ({ onClose, results, data }) => {
+const Answers = ({ onClose, results, data }) => {
   return(
     <div className="modalpanel">
       <div className="modalbackground" onClick={onClose}></div>
@@ -23,4 +23,4 @@ const Modal = ({ onClose, results, data }) => {
   );
 }
 
-export default Modal;
+export default Answers;

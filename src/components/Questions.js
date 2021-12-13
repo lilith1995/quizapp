@@ -34,7 +34,7 @@ const Questions = ({
         setLoading(false)
       }, 2000)
     }
-    onAnswerUpdate(prevState => [...prevState, { q: data.question, a: checked }]);
+    onAnswerUpdate(prevState => [...prevState, { q: data.description, a: checked }]);
     setChecked('');
     setProgress(percentRange < 100 ? percentRange + 10 : 100)
     if (activeQuestion < numberOfQuestions - 1) {
@@ -43,6 +43,7 @@ const Questions = ({
       onSetStep(3);
     }
   };
+
   useEffect(() => {
     if (loading === true) {
     }
@@ -52,9 +53,9 @@ const Questions = ({
         findCheckedInput.checked = false;
       }
     }
-
+    
   }, [data]);
-  
+
   return (
     <>
       {loading ? <CircularIndeterminate /> :

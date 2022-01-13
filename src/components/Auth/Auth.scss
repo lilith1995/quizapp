@@ -1,0 +1,114 @@
+
+.cfb {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Container {
+    position: fixed;
+    margin-top: 5%;
+    margin-left: 25%;
+
+    width: 50%;
+    height: 60%;
+
+    box-shadow: 1px 2px 2px #592941;
+    border: 0.1em solid #592941;
+    border-radius: 0.5em;
+    
+
+ 
+
+    .banner-side {
+        position: absolute;
+        z-index: 2;
+        right: 65%;
+
+        border: 0.1em solid #592941;
+        border-radius: 0.5em;
+
+        width: 35%;
+        height: 100%;
+
+        flex-direction: column;
+
+        background-color: #5C58B6;
+        opacity: 1;
+
+        color: #EEFCF8;
+        text-align: center;
+
+        transition: 2s;
+    }
+
+
+    .form-side {
+        position: absolute;
+        z-index: 1;
+        right: 0;
+
+        border: 0.1em solid #592941;
+        border-radius: 0.5em;
+
+        width: 65%;
+        height: 100%;
+
+        background-color: #EEFCF8;
+        opacity: 1;
+
+        font-weight: bold;
+        color: #035E7B;
+
+        transition: 2s;
+    }
+
+    .send-right {
+        right: 0;
+    }
+
+    .send-left {
+        right: 35%;
+    }
+}
+
+
+.form-comp {
+    flex-direction: column;
+}
+
+.sign-up-form {
+    width: 50%;
+    flex-direction: column;
+}
+
+.sign-up-form>label {
+    padding: 0.5em;
+    width: 100%
+}
+
+.sign-up-form>label>input {
+    width: 100%
+}
+
+button {
+    padding: 1em;
+
+    border: 1px solid #EEFCF8;
+    border-radius: 5em;
+
+    background-color: #EEFCF8;
+
+    color: #01042e;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+button:focus {
+    outline: 0;
+}
+
+button:hover {
+    opacity: 0.9;
+}

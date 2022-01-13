@@ -47,7 +47,7 @@ const SignIn = () => {
                     <br />
                     <input value={password} onChange={handlePasswordChange} />
                 </label>
-                <button title="Sign in!" onClick={handleSubmit} />
+                <button className="buttonauth" title="Sign in!" onClick={handleSubmit}>Submit</button>
                 <p>{errorText}</p>
             </form>
         </div>

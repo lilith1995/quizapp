@@ -38,7 +38,7 @@ const SignUp = () => {
             <h1>Create an Account!</h1>
             <form className="sign-up-form cfb">
                 <label>
-                    Name:
+                    Username:
                     <br />
                     <input />
                 </label>
@@ -52,7 +52,7 @@ const SignUp = () => {
                     <br />
                     <input value={password} onChange={handlePasswordChange} />
                 </label>
-                <button title="Sign in!" onClick={handleSubmit} />
+                <button className="buttonauth" title="Sign in!" onClick={handleSubmit}>Submit</button>
                 <p>{errorText}</p>
             </form>
         </div>

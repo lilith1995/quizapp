@@ -1,5 +1,5 @@
 const inputValidation = {
-    name: ({ name }) => usernameValidation(name),
+    name: ({ name }) => nameValidation(name),
     email: ({ email }) => emailValidation(email),
     password: ({ password }) => passwordValidation(password),
 }
@@ -40,7 +40,7 @@ const ValidationChecker = (data, validationType) => {
 
 function contentValidation(data, type) {
     let isValid = false;
-    const requiredRegister = ['username', 'email', 'password'];
+    const requiredRegister = ['password', 'email', 'name'];
     const requiredSignIn = ['password', 'email'];
 
     let fieldData = ''
@@ -90,8 +90,8 @@ function emailValidation(email) {
     }
 }
 
-function usernameValidation(username) {
-    if (username.length > 3) {
+function nameValidation(name) {
+    if (name.length > 3) {
         return {
             valid: true,
             error: ''
@@ -99,7 +99,7 @@ function usernameValidation(username) {
     }
     else return {
         valid: false,
-        error: 'username'
+        error: 'name'
     }
 }
 

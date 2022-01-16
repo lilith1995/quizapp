@@ -101,11 +101,12 @@
     width: 50%;
     flex-direction: column;
 
-      .errortext {
-          font-size: large;
+     .messages{
+        text-align: center;
+          font-size: 12px;
           color: red;
           font-style: normal red;
-      }
+    }
 }
 
 .sign-up-form>label {

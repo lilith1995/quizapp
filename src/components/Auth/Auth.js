@@ -40,7 +40,6 @@ const Auth = () => {
                     <Register />
                     : <SignIn />
                 }
-
             </div>
         </div>
     );

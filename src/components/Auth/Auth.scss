@@ -100,6 +100,12 @@
 .sign-up-form {
     width: 50%;
     flex-direction: column;
+
+      .errortext {
+          font-size: large;
+          color: red;
+          font-style: normal red;
+      }
 }
 
 .sign-up-form>label {

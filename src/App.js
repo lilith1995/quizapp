@@ -30,7 +30,7 @@ function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <UserContext.Provider value={"aukgfh"}>
+        <UserContext.Provider value={"data"}>
           <div className="App">
             <ProtectedRoute path={"/auth"} isAuth component={Auth} />
             <ProtectedRoute path={"/"} component={Quiz} />

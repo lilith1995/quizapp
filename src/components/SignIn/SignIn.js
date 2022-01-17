@@ -69,7 +69,7 @@ const SignIn = () => {
 
     return (
         <div className="form-comp cfb" >
-            <h1>Sign In!</h1>
+            <h1>What's up!</h1>
             <form className="sign-up-form cfb" onSubmit={validErrors}>
                 <div className="messages">
                     {errorText}

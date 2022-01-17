@@ -1,22 +1,21 @@
-import { Route, BrowserRouter as Router, Switch, Redirect } from "react-router-dom";
+import React from 'react';
+import { BrowserRouter, Link, Route, Switch } from "react-router-dom";
 import Auth from "./components/Auth/Auth";
 import Quiz from "./components/Quiz/Quiz";
 
-import './App.scss';
 
+import './App.scss';
 const App = () => {
   return (
-    <Router>
+    <BrowserRouter>
       <Switch>
         <Route path="/auth">
-          {localStorage.token ? <Redirect to='/' /> : <Auth />}
+          <Auth />
         </Route>
-        <Route path='/'>
-          {localStorage.token ? <Quiz /> : <Redirect to='/auth' />}
-        </Route>
-        {/* <Route path='/admin'> <Admin /> </Route> */}
+        <Route path='/'> <Quiz /></Route>
       </Switch>
-    </Router>
+    </BrowserRouter>
   );
 }
+
 export default App;

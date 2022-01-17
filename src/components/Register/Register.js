@@ -91,7 +91,7 @@ const Register = () => {
     };
     return (
         <div className="form-comp cfb">
-            <h1>Create an Account!</h1>
+            <h2>Join the Fandom!</h2>
             <form className="sign-up-form cfb" onSubmit={validErrors}>
                 <div className="messages">
                     {errorText}

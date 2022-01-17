@@ -54,16 +54,14 @@ const SignIn = () => {
                 const body = JSON.stringify(newUser)
                 const res = await axios.post('/api/users/login', body, config)
                 console.log(res.data);
-                setError(false);
-                history.push("/");
             } catch (err) {
                 console.error(err.response.data);
                 if (email) {
                     setError("User does not exists");
-                } else if (password) {
-                    setError("Paswword is incorrect")
                 }
             }
+            localStorage.setItem("isAuthenticated", "true");
+            history.push('/');
         }
     }
 

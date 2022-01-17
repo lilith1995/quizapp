@@ -42,6 +42,11 @@ const Quiz = () => {
         handleRequest();
     }, []);
 
+    const handleExit = () => {
+        localStorage.clear();
+        window.location.pathname = "/auth";
+    };
+
     return (
         <div className="container">
             {step === 1 && <Home onQuizStart={quizStartHandler} />}
@@ -71,6 +76,9 @@ const Quiz = () => {
                     data={data}
                 />
             )}
+            <button className="buttonexit" onClick={handleExit}>
+                Log Out
+            </button>
         </div>
     );
 };

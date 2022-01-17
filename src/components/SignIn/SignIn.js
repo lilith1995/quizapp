@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-
+import axios from "axios";
 import ValidationChecker from "../../util/validation";
 import "../../App.scss";
 
@@ -12,79 +12,85 @@ const SignIn = () => {
         password: ""
     })
 
+    const { email, password } = user;
+
+    const onChange = e => setUser({ ...user, [e.target.name]: e.target.value });
+
     const [errorText, setError] = useState([]);
 
-
-    const isValid = (type) => {
+    const validErrors = (type) => {
         switch (type) {
             case "email":
-                setError("Invalid Email");
+                setError("Email is invalid");
                 break;
             case "password":
-                setError("Invalid password");
+                setError("Password is invalid");
                 break;
             default:
                 setError("Please fill in all the fields");
                 break
         }
     }
+    const onSubmit = async e => {
+        e.preventDefault();
+        const validReg = ValidationChecker(user, "signin");
+        console.log(validReg.error)
+        validReg.error.forEach(type => {
+            validErrors(type);
+        })
+        if (validReg.isValid) {
+            const newUser = {
+                email,
+                password
+            }
 
+            try {
 
-    const handleSubmit = async () => {
-        const validUser = ValidationChecker(user, "signin");
-        console.log(validUser.error)
-        if (validUser.isValid) {
-            await fetch("/api/users/login", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(user),
-            })
-
-                .then((res) => res.json())
-                .then((data) => {
-                    console.log(data);
-                    if (!data.userIsValid) {
-                        setError("User does not exist")
-                    } else if (!data.passwordIsCorrect) {
-                        setError("Password is incorrect")
+                const config = {
+                    headers: {
+                        'Content-type': 'application/json'
                     }
-                    if (data.data.length !== 0) {
-                        localStorage.setItem("token", data.token);
-                    }
-                });
-        } else return;
-    };
+                }
+                const body = JSON.stringify(newUser)
+                const res = await axios.post('/api/users/login', body, config)
+                console.log(res.data);
+                setError(false);
+                history.push("/");
+            } catch (err) {
+                console.error(err.response.data);
+                if (email) {
+                    setError("User does not exists");
+                } else if (password) {
+                    setError("Paswword is incorrect")
+                }
+            }
+        }
+    }
 
     return (
         <div className="form-comp cfb" >
             <h1>Sign In!</h1>
-            <form className="sign-up-form cfb" onSubmit={isValid}>
+            <form className="sign-up-form cfb" onSubmit={validErrors}>
+                <div className="messages">
+                    {errorText}
+                </div>
                 <label>
                     Email:
                     <br />
-                    <input type="email"
-                        onChange={(e) => {
-                            setUser((prev) => ({
-                                ...prev,
-                                email: e.target.value,
-                            }));
-                        }}
+                    <input type="email" name="email" value={email}
+                        onChange={e => onChange(e)
+                        }
                         required />
                 </label>
                 <label>
                     Password:
                     <br />
-                    <input type="password"
-                        onChange={(e) => {
-                            setUser((prev) => ({
-                                ...prev,
-                                password: e.target.value,
-                            }));
-                        }}
+                    <input type="password" name="password" value={password}
+                        onChange={e => onChange(e)
+                        }
                         required />
                 </label>
-                <button className="buttonauth" title="Sign in!" onClick={handleSubmit}>Submit</button>
-                <p className="errortext">{errorText}</p>
+                <button className="buttonauth" title="Sign in!" onClick={e => onSubmit(e)}>Submit</button>
             </form>
         </div>
     );

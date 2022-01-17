@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import ProgressBar from "./ProgressBar";
-import CircularIndeterminate from "./Loader";
+import CircularIndeterminate from "../Loader/Loader";
 
 
 const Questions = ({
@@ -53,7 +53,7 @@ const Questions = ({
         findCheckedInput.checked = false;
       }
     }
-    
+
   }, [data]);
 
   return (
@@ -81,7 +81,7 @@ const Questions = ({
           </button>
         </div>
       }
-  </>
+    </>
   )
 }
 

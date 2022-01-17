@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import Home from "../Home";
-import Questions from "../Questions";
-import End from "../End";
-import Answers from "../Answers";
+import Home from "../Home/Home";
+import Questions from "./Questions";
+import End from "./End";
+import Answers from "./Answers";
 
 import "./Quiz.scss";
 
@@ -27,7 +27,7 @@ const Quiz = () => {
         const handleRequest = async () => {
             var headers = {}
             try {
-                const res = await fetch("http://localhost:4000/api/questions", {
+                const res = await fetch("/api/questions", {
                     method: "GET",
                     mode: "cors",
                     headers: headers

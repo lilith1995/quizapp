@@ -5,7 +5,7 @@ import Register from '../Register/Register';
 import "./Auth.scss";
 
 const Auth = () => {
-    const [welcome, setWelcome] = useState(false)
+    const [welcome, setWelcome] = useState(false);
 
     const setBannerClass = () => {
         const classArr = ["banner-side cfb"]

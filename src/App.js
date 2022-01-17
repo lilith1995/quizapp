@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { Route, BrowserRouter as Router, Switch, Redirect } from "react-router-dom";
 import Auth from "./components/Auth/Auth";
 import Quiz from "./components/Quiz/Quiz";
 
@@ -6,17 +6,17 @@ import './App.scss';
 
 const App = () => {
   return (
-    <BrowserRouter>
+    <Router>
       <Switch>
         <Route path="/auth">
-          <Auth />
+          {localStorage.token ? <Redirect to='/' /> : <Auth />}
         </Route>
         <Route path='/'>
-          <Quiz />
+          {localStorage.token ? <Quiz /> : <Redirect to='/auth' />}
         </Route>
         {/* <Route path='/admin'> <Admin /> </Route> */}
       </Switch>
-    </BrowserRouter>
+    </Router>
   );
 }
 export default App;

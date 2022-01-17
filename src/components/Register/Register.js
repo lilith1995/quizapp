@@ -67,8 +67,6 @@ const Register = () => {
                 console.log(res.data);
                 setError(false);
                 setSubmitted(true);
-                localStorage.setItem("isAuthenticated", "true");
-                window.location.pathname = "/";
             } catch (err) {
                 console.error(err.response.data);
                 if (password !== password2) {

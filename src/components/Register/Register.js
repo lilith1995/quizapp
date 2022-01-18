@@ -36,7 +36,7 @@ const Register = () => {
                 break;
             default:
                 setError("Please fill in all the fields");
-                break
+                break;
         }
     }
     const onSubmit = async e => {
@@ -73,7 +73,6 @@ const Register = () => {
                     setError("Passwords do not match");
                 } else if (email) {
                     setError("Email is already in use")
-
                 }
                 setSubmitted(false);
             }
@@ -81,7 +80,7 @@ const Register = () => {
     }
     const successMessage = () => {
         return (
-            <div
+            <div className="succsess"
                 style={{
                     display: submitted ? '' : 'none',
                 }}>
@@ -101,7 +100,6 @@ const Register = () => {
                     Your name:
                     <br />
                     <input type="text" name="name" value={name}
-                        minle
                         onChange={e =>
                             onChange(e)
                         }
@@ -119,13 +117,13 @@ const Register = () => {
                     Password:
                     <br />
                     <input type="password" name="password" value={password} onChange={e => onChange(e)
-                    } />
+                    } required />
                 </label>
                 <label>
                     Confirm Password:
                     <br />
                     <input type="password" name="password2" value={password2} onChange={e => onChange(e)
-                    } />
+                    } required />
                 </label>
                 <button className="buttonauth" title="Sign in!" onClick={e => onSubmit(e)} >Submit</button>
             </form>

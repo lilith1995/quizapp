@@ -24,19 +24,16 @@ const Register = () => {
     const [errorText, setError] = useState([]);
 
     const validErrors = (type) => {
+        const errors = [];
         switch (type) {
             case "name":
-                setError("Invalid Name");
-                break;
+                errors.push("Name is invalid");
             case "email":
-                setError("Email is invalid");
-                break;
+                errors.push("Email is invalid");
             case "password":
-                setError("Password must be at least 6 characters");
-                break;
+                errors.push("Password is invalid");
             default:
-                setError("Please fill in all the fields");
-                break;
+                errors.length === 3 ? setError(["Please fill in all the fields"]) : setError(errors);
         }
     }
     const onSubmit = async e => {
@@ -93,7 +90,7 @@ const Register = () => {
             <h2>Join the Fandom!</h2>
             <form className="sign-up-form cfb" onSubmit={validErrors}>
                 <div className="messages">
-                    {errorText}
+                    {errorText.map((error, i) => <p key={i}>{error} </p>)}
                     {successMessage()}
                 </div>
                 <label>

@@ -19,16 +19,14 @@ const SignIn = () => {
     const [errorText, setError] = useState([]);
 
     const validErrors = (type) => {
+        const errors = [];
         switch (type) {
             case "email":
-                setError("Email is invalid");
-                break;
+                errors.push("Email is invalid");
             case "password":
-                setError("Password is invalid");
-                break;
+                errors.push("Password is invalid");
             default:
-                setError("Please fill in all the fields");
-                break
+                errors.length === 3 ? setError(["Please fill in all the fields"]) : setError(errors);
         }
     }
     const onSubmit = async e => {

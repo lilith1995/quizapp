@@ -20,14 +20,17 @@ const SignIn = () => {
 
     const validErrors = (type) => {
         switch (type) {
+            case "email" ||
+                "password":
+                setError("Please check all the fields");
+                break;
             case "email":
                 setError("Email is invalid");
                 break
             case "password":
                 setError("Password is invalid");
                 break
-            default:
-                setError(["Please fill in all the fields"]);
+            default: ;
         }
     }
     const onSubmit = async e => {

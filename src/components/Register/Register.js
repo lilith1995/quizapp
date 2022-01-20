@@ -26,6 +26,11 @@ const Register = () => {
     const validErrors = (type) => {
         const errors = [];
         switch (type) {
+            case "name" ||
+                "email" ||
+                "password":
+                setError("Please check all the fields");
+                break;
             case "name":
                 setError("Name is invalid");
                 break;
@@ -36,7 +41,7 @@ const Register = () => {
                 setError("Password is invalid");
                 break
             default:
-                break;
+
         }
     }
     const onSubmit = async e => {

@@ -27,13 +27,16 @@ const Register = () => {
         const errors = [];
         switch (type) {
             case "name":
-                errors.push("Name is invalid");
+                setError("Name is invalid");
+                break;
             case "email":
-                errors.push("Email is invalid");
+                setError("Email is invalid");
+                break
             case "password":
-                errors.push("Password is invalid");
+                setError("Password is invalid");
+                break
             default:
-                errors.length === 3 ? setError(["Please fill in all the fields"]) : setError(errors);
+                break;
         }
     }
     const onSubmit = async e => {
@@ -62,16 +65,16 @@ const Register = () => {
                 const body = JSON.stringify(newUser)
                 const res = await axios.post('/api/users/register', body, config)
                 console.log(res.data);
-                setError(false);
                 setSubmitted(true);
             } catch (err) {
                 console.error(err.response.data);
+                setSubmitted(false);
                 if (password !== password2) {
                     setError("Passwords do not match");
                 } else if (email) {
                     setError("Email is already in use")
                 }
-                setSubmitted(false);
+
             }
         };
     }
@@ -90,7 +93,7 @@ const Register = () => {
             <h2>Join the Fandom!</h2>
             <form className="sign-up-form cfb" onSubmit={validErrors}>
                 <div className="messages">
-                    {errorText.map((error, i) => <p key={i}>{error} </p>)}
+                    {errorText}
                     {successMessage()}
                 </div>
                 <label>

@@ -19,14 +19,15 @@ const SignIn = () => {
     const [errorText, setError] = useState([]);
 
     const validErrors = (type) => {
-        const errors = [];
         switch (type) {
             case "email":
-                errors.push("Email is invalid");
+                setError("Email is invalid");
+                break
             case "password":
-                errors.push("Password is invalid");
+                setError("Password is invalid");
+                break
             default:
-                errors.length === 3 ? setError(["Please fill in all the fields"]) : setError(errors);
+                setError(["Please fill in all the fields"]);
         }
     }
     const onSubmit = async e => {
@@ -52,14 +53,14 @@ const SignIn = () => {
                 const body = JSON.stringify(newUser)
                 const res = await axios.post('/api/users/login', body, config)
                 console.log(res.data);
+                localStorage.setItem("isAuthenticated", "true");
+                history.push('/');
             } catch (err) {
                 console.error(err.response.data);
                 if (email) {
                     setError("User does not exists");
                 }
             }
-            localStorage.setItem("isAuthenticated", "true");
-            history.push('/');
         }
     }
 

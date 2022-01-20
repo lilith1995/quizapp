@@ -71,7 +71,8 @@ const Register = () => {
                 setSubmitted(false);
                 if (password !== password2) {
                     setError("Passwords do not match");
-                } else if (email) {
+                }
+                if (email) {
                     setError("Email is already in use")
                 }
 

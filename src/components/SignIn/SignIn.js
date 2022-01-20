@@ -57,6 +57,9 @@ const SignIn = () => {
                 history.push('/');
             } catch (err) {
                 console.error(err.response.data);
+                if (password) {
+                    setError("Password is incorrect")
+                }
                 if (email) {
                     setError("User does not exists");
                 }

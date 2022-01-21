@@ -70,15 +70,16 @@ const Register = () => {
                 const body = JSON.stringify(newUser)
                 const res = await axios.post('/api/users/register', body, config)
                 console.log(res.data);
+                setError(false);
                 setSubmitted(true);
             } catch (err) {
                 console.error(err.response.data);
                 setSubmitted(false);
-                if (password !== password2) {
-                    setError("Passwords do not match");
-                }
                 if (email) {
                     setError("Email is already in use")
+                }
+                if (password !== password2) {
+                    setError("Passwords do not match");
                 }
 
             }

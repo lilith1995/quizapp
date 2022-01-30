@@ -4,13 +4,33 @@
     height: 100vh;
     flex-direction: column;
     align-items: center;
+     text-align: center;
 
-    h3 {
+    h2 {
         text-align: center;
         color: aliceblue;
     }
 
    .buttonquit {
+            width: min-content;
+            height: min-content;
+            background-color: #0c1532;
+            color: cadetblue;
+            border-radius: 4px;
+            border: none;
+            color: #fff;
+            text-align: center;
+            padding: 16px;
+            transition: all 0.2s;
+            cursor: pointer;
+            box-shadow: 0 10px 20px -8px rgba(0, 0, 0, 0.7);
+
+            &:hover {
+                color: #001f3f;
+                background-color: #fff;
+            }
+        }
+           .buttonadd{
             width: min-content;
             height: min-content;
             background-color: #0c1532;
@@ -42,12 +62,59 @@
          
             .tableitems td{
                 padding: 10px;
-
             }
         }
         }
 
-        .buttonadd{
+        .modalshow{
+            text-align: center;
+        }
+
+        .modaladd{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-content: center;
+            padding: 5px;
+h3 {
+    color: #0c1532;
+}
+
+            .buttonssaveadding{
+            align-self: center;
+            width: min-content;
+            height: min-content;
+            background-color: #0c1532;
+            color: cadetblue;
+            border-radius: 4px;
+            border: none;
+            color: #fff;
+            text-align: center;
+            padding: 16px;
+            transition: all 0.2s;
+            cursor: pointer;
+            box-shadow: 0 10px 20px -8px rgba(0, 0, 0, 0.7);
+
+            &:hover {
+                color: #001f3f;
+                background-color: #fff;
+            }
+        }
+    }
+
+    .modaledit{
+           display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-content: center;
+            padding: 5px;
+
+
+          h3{
+              color: #0c1532;
+         }
+            .buttonsave {
+                align-self: center;
             width: min-content;
             height: min-content;
             background-color: #0c1532;
@@ -67,25 +134,7 @@
             }
         }
 
-        .buttonedit {
-            width: min-content;
-            height: min-content;
-            background-color: #0c1532;
-            color: cadetblue;
-            border-radius: 4px;
-            border: none;
-            color: #fff;
-            text-align: center;
-            padding: 16px;
-            transition: all 0.2s;
-            cursor: pointer;
-            box-shadow: 0 10px 20px -8px rgba(0, 0, 0, 0.7);
-
-            &:hover {
-                color: #001f3f;
-                background-color: #fff;
-            }
-        }
+    }
           img{
                 width: 20px;
                 height: 20px;

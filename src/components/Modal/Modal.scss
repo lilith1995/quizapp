@@ -12,30 +12,19 @@
     
 
     .modal-view {
-      width: 100%;
-      background-color: rgb(94, 240, 255);
-       display: flex;
+      width: 50%;
+      padding: 5px;
+      background-color: #d2e0f7;
+      display: flex;
       flex-direction: column;
-
- }
-     .buttonclose {
-         margin-top: 30px;
-            width: min-content;
-            height: min-content;
-            background-color: #0c1532;
-            color: cadetblue;
-            border-radius: 4px;
-            border: none;
-            color: #fff;
-            text-align: center;
-            padding: 16px;
-            transition: all 0.2s;
-            cursor: pointer;
-            box-shadow: 0 10px 20px -8px rgba(0, 0, 0, 0.7);
-
-            &:hover {
-                color: #001f3f;
-                background-color: #fff;
-            }
-    }
+       align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      box-shadow: 0 10px 20px -8px rgba(0, 0, 0, 0.1);
+img {
+  align-self: flex-end;
+  width: 30px;
+  height: 30px;
+}
+}
 }

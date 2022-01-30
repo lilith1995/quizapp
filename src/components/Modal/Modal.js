@@ -1,12 +1,19 @@
 import "./Modal.scss";
+import Close from "../../assets/close.png";
 
 const Modal = ({ show, setShow, children }) => {
     if (show) {
         return (
             <div className="modal-container">
-                <div id="modal-view">
+                <div className="modal-view">
+                    <img
+                        src={Close}
+                        alt="Close"
+                        onClick={() => {
+                            setShow(!show);
+                        }}
+                    />
                     {children}
-                    <button onClick={() => { setShow(false); }} className="buttonclose" type="button">Close</button>
                 </div>
             </div>
         )

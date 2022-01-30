@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { BrowserRouter, Link, Route, Switch } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter, Route } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import Modal from "../Modal/Modal";
@@ -71,8 +71,9 @@ const Admin = () => {
             console.error(err.response.data);
 
         }
-        setDisplayAdd(false)
+        setDisplayAdd(true)
     };
+
     const deletingQuestion = (id) => () => {
         const link = '/api/admin/deleteQuestion/' + id;
 
@@ -116,10 +117,8 @@ const Admin = () => {
             history.push('/')
         } catch (err) {
             console.error(err.response.data);
-            setDisplayEdit(false)
 
         }
-        setDisplayAdd(false);
     };
 
     const exitToMainPage = () => {
@@ -131,7 +130,7 @@ const Admin = () => {
             <BrowserRouter>
                 <Route path="/admin">
                     <button type="button" className="buttonquit" onClick={exitToMainPage}>Exit</button>
-                    <h3>Here you can see all the questions, edit and delete them or add the new one</h3>
+                    <h2>Here you can see all the questions, edit and delete them or add the new one</h2>
                     <section className="quiztable">
                         <thead>
                             <tr>
@@ -149,8 +148,8 @@ const Admin = () => {
                                         <td>{currentQuestion.description}</td>
                                         <td>{currentQuestion.choices[0]}, {currentQuestion.choices[1]}, {currentQuestion.choices[2]}, {currentQuestion.choices[3]}</td>
                                         <td>{currentQuestion.answer}</td>
-                                        <td><img onClick={() => { setCurrentIndex(index); setDisplayEdit(true); }} className="viewicon" src={View} /></td>
-                                        <td><img onClick={deletingQuestion(currentQuestion._id)} className="deleteicon" src={Delete} /></td>
+                                        <td><img onClick={() => { setCurrentIndex(index); setDisplayEdit(true); }} className="viewicon" src={View} alt="View" /></td>
+                                        <td><img onClick={deletingQuestion(currentQuestion._id)} className="deleteicon" src={Delete} alt="Delete" /></td>
                                     </tr>
                                 ))
                             }
@@ -158,14 +157,17 @@ const Admin = () => {
                     </section>
                     <button type="button" className="buttonadd" onClick={() => setDisplayAdd(true)}>Add question</button>
                     {questionList[currentIndex] &&
-                        <Modal show={displayView} setFoo={setDisplayView}>
-                            <h4>Question: {questionList[currentIndex].description}.</h4>
-                            <p>Choices: {questionList[currentIndex].choices}.</p>
-                            <p>Correct Answer: {questionList[currentIndex].answer}</p>
+                        <Modal show={displayView} setShow={setDisplayView}>
+                            <div className='modalshow'>
+                                <h4>Question: {questionList[currentIndex].description}.</h4>
+                                <p>Choices: {questionList[currentIndex].choices}.</p>
+                                <p>Correct Answer: {questionList[currentIndex].answer}</p>
+                            </div>
                         </Modal>
                     }
                     <Modal show={displayAdd} setShow={setDisplayAdd}>
-                        <form action="" className='addform'>
+                        <form action="" className='modaladd'>
+                            <h3>Add a new question</h3>
                             <div className="input">
                                 <input type="text" placeholder="Type Question" name="description" value={description || ""} onChange={e => onChange(e)
                                 } required />
@@ -178,12 +180,13 @@ const Admin = () => {
                                 <input type="text" placeholder="Type the correct answer" name="answer" value={answer || ""} onChange={e => onChange(e)
                                 } required />
                             </div>
-                            <button onClick={e => onAdding(e)} className="buttonadd" type="button">Add question</button>
+                            <button onClick={e => onAdding(e)} className="buttonssaveadding" type="button">Save</button>
                         </form>
                     </Modal>
                     {questionList[currentIndex] &&
                         <Modal show={displayEdit} setShow={setDisplayEdit}>
-                            <form action="">
+                            <form action="" className='modaledit'>
+                                <h3>Edit the question, choices and the correct answer</h3>
                                 <div className="input">
                                     <input type="text" defaultValue={questionList[currentIndex].description} value={description} />
                                 </div>
@@ -195,7 +198,7 @@ const Admin = () => {
                                     <input type="text" placeholder="Type the correct answer" name="answer" defaultValue={questionList[currentIndex].answer} value={answer} onChange={e => onChange(e)
                                     } required />
                                 </div>
-                                <button className="buttonedit" type="button" onClick={updatingQuestion(questionList[currentIndex]._id, currentIndex)}>Save</button>
+                                <button className="buttonsave" type="button" onClick={updatingQuestion(questionList[currentIndex]._id, currentIndex)}>Save</button>
                             </form>
                         </Modal>
                     }

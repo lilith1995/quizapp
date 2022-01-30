@@ -5,6 +5,7 @@ import axios from "axios";
 import Modal from "../Modal/Modal";
 
 import View from "../../assets/viewicon.png";
+import Edit from "../../assets/edit.png";
 import Delete from "../../assets/deleteicon.png";
 
 import './Admin.scss';
@@ -143,12 +144,13 @@ const Admin = () => {
                         <tbody className="tabledata">
                             {questionList.length >= 1 &&
                                 questionList.map((currentQuestion, index) => (
-                                    <tr key={currentQuestion._id} onDoubleClick={() => { setDisplayView(true); setCurrentIndex(index); }} className="tableitems" >
+                                    <tr key={currentQuestion._id} className="tableitems" >
                                         <th scope="row">{currentQuestion._id}</th>
                                         <td>{currentQuestion.description}</td>
                                         <td>{currentQuestion.choices[0]}, {currentQuestion.choices[1]}, {currentQuestion.choices[2]}, {currentQuestion.choices[3]}</td>
                                         <td>{currentQuestion.answer}</td>
-                                        <td><img onClick={() => { setCurrentIndex(index); setDisplayEdit(true); }} className="viewicon" src={View} alt="View" /></td>
+                                        <td><img onClick={() => { setCurrentIndex(index); setDisplayView(true); }} className="viewicon" src={View} alt="View" /></td>
+                                        <td><img onClick={() => { setCurrentIndex(index); setDisplayEdit(true); }} className="viewicon" src={Edit} alt="Edit" /></td>
                                         <td><img onClick={deletingQuestion(currentQuestion._id)} className="deleteicon" src={Delete} alt="Delete" /></td>
                                     </tr>
                                 ))

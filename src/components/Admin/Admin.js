@@ -165,7 +165,7 @@ const Admin = () => {
                         <Modal show={displayView} setShow={setDisplayView}>
                             <div className='modalshow'>
                                 <h4>Question: {questionList[currentIndex].description}.</h4>
-                                <p>Choices: {questionList[currentIndex].choices}.</p>
+                                <p>Choices: {questionList[currentIndex].choices[0]}, {questionList[currentIndex].choices[1]}, {questionList[currentIndex].choices[2]}, {questionList[currentIndex].choices[3]} .</p>
                                 <p>Correct Answer: {questionList[currentIndex].answer}</p>
                             </div>
                         </Modal>
@@ -178,7 +178,7 @@ const Admin = () => {
                                 } required />
                             </div>
                             <div className="input">
-                                <input type="text" placeholder="Type the choices and separate them with comma" name="choices" value={choices} onChange={e => onChange(e)
+                                <input type="text" placeholder="Type the choices and separate them with comma" name="choices" value={choices || ""} onChange={e => onChange(e)
                                 } required />
                             </div>
                             <div className="input">

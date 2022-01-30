@@ -102,8 +102,7 @@ const Admin = () => {
     }
 
     const updatingQuestion = async e => {
-
-        let body = {
+        const body = {
             description,
             choices,
             answer
@@ -115,17 +114,19 @@ const Admin = () => {
                     'Content-type': 'application/json'
                 }
             }
-            const res = await axios.put('/api/admin/updateQuestion/:id', body, config)
+            const res = await axios.post('/api/admin/updateQuestion/:id', body, config)
             console.log(res.data);
             history.push('/admin')
+            window.location.reload();
         } catch (err) {
             console.error(err.response.data);
 
         }
+        setDisplayEdit(false)
     };
 
     const exitToMainPage = () => {
-        history.push({ pathname: '/admin' });
+        history.push({ pathname: '/auth' });
     }
 
     return (
@@ -177,7 +178,7 @@ const Admin = () => {
                                 } required />
                             </div>
                             <div className="input">
-                                <input type="text" placeholder="Type the choices" name="choices" value={choices} onChange={e => onChange(e)
+                                <input type="text" placeholder="Type the choices and separate them with comma" name="choices" value={choices} onChange={e => onChange(e)
                                 } required />
                             </div>
                             <div className="input">

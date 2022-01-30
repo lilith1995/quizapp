@@ -66,7 +66,7 @@ const Admin = () => {
             }
             const res = await axios.post('/api/admin/addQuestion', body, config)
             console.log(res.data);
-            history.push('/admin')
+            history.push('/')
         } catch (err) {
             console.error(err.response.data);
 

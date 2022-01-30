@@ -9,6 +9,7 @@ import Edit from "../../assets/edit.png";
 import Delete from "../../assets/deleteicon.png";
 
 import './Admin.scss';
+import { withMobileDialog } from '@material-ui/core';
 
 const Admin = () => {
     const [questionList, setQuestionList] = useState({
@@ -67,12 +68,13 @@ const Admin = () => {
             }
             const res = await axios.post('/api/admin/addQuestion', body, config)
             console.log(res.data);
-            history.push('/')
+            history.push('/admin')
+            window.location.reload();
         } catch (err) {
             console.error(err.response.data);
 
         }
-        setDisplayAdd(true)
+        setDisplayAdd(false)
     };
 
     const deletingQuestion = (id) => () => {
@@ -115,7 +117,7 @@ const Admin = () => {
             }
             const res = await axios.put('/api/admin/updateQuestion/:id', body, config)
             console.log(res.data);
-            history.push('/')
+            history.push('/admin')
         } catch (err) {
             console.error(err.response.data);
 
@@ -123,7 +125,7 @@ const Admin = () => {
     };
 
     const exitToMainPage = () => {
-        history.push({ pathname: '/' });
+        history.push({ pathname: '/admin' });
     }
 
     return (

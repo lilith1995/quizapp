@@ -1,12 +1,12 @@
 import "./Modal.scss";
 
-const Modal = ({ isShow, setFoo, children }) => {
-    if (isShow) {
+const Modal = ({ show, setShow, children }) => {
+    if (show) {
         return (
             <div className="modal-container">
                 <div id="modal-view">
                     {children}
-                    <button onClick={() => { setFoo(false); }} className="buttonclose" type="button">Close</button>
+                    <button onClick={() => { setShow(false); }} className="buttonclose" type="button">Close</button>
                 </div>
             </div>
         )

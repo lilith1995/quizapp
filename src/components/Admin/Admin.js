@@ -9,7 +9,6 @@ import Edit from "../../assets/edit.png";
 import Delete from "../../assets/deleteicon.png";
 
 import './Admin.scss';
-import { withMobileDialog } from '@material-ui/core';
 
 const Admin = () => {
     const [questionList, setQuestionList] = useState({
@@ -82,7 +81,7 @@ const Admin = () => {
 
         const deleteItem = async () => {
             try {
-                await fetch(link, { method: 'DELETE' });
+                await axios.delete(link);
 
                 let arr = [];
                 let index = 0;
@@ -95,13 +94,13 @@ const Admin = () => {
                 }
                 setQuestionList(arr);
             } catch (e) {
-                console.log('Something went wrong, please try again later.');
+                console.log('Something went wrong, please try again!');
             }
         }
         deleteItem();
     }
 
-    const updatingQuestion = async e => {
+    const onUpdateing = async e => {
         const body = {
             description,
             choices,
@@ -114,16 +113,15 @@ const Admin = () => {
                     'Content-type': 'application/json'
                 }
             }
-            const res = await axios.post('/api/admin/updateQuestion/:id', body, config)
-            console.log(res.data);
+            const res = await axios.put('/api/admin/updateQuestion/', body, config)
+            setQuestionList(body)
             history.push('/admin')
             window.location.reload();
         } catch (err) {
             console.error(err.response.data);
-
         }
-        setDisplayEdit(false)
-    };
+        setDisplayEdit(false);
+    }
 
     const exitToMainPage = () => {
         history.push({ pathname: '/auth' });
@@ -136,29 +134,31 @@ const Admin = () => {
                     <button type="button" className="buttonquit" onClick={exitToMainPage}>Exit</button>
                     <h2>Here you can see all the questions, edit and delete them or add the new one</h2>
                     <section className="quiztable">
-                        <thead>
-                            <tr>
-                                <th >ID</th>
-                                <th >Question</th>
-                                <th >Choices</th>
-                                <th >Correct Answer</th>
-                            </tr>
-                        </thead>
-                        <tbody className="tabledata">
-                            {questionList.length >= 1 &&
-                                questionList.map((currentQuestion, index) => (
-                                    <tr key={currentQuestion._id} className="tableitems" >
-                                        <th scope="row">{currentQuestion._id}</th>
-                                        <td>{currentQuestion.description}</td>
-                                        <td>{currentQuestion.choices[0]}, {currentQuestion.choices[1]}, {currentQuestion.choices[2]}, {currentQuestion.choices[3]}</td>
-                                        <td>{currentQuestion.answer}</td>
-                                        <td><img onClick={() => { setCurrentIndex(index); setDisplayView(true); }} className="viewicon" src={View} alt="View" /></td>
-                                        <td><img onClick={() => { setCurrentIndex(index); setDisplayEdit(true); }} className="viewicon" src={Edit} alt="Edit" /></td>
-                                        <td><img onClick={deletingQuestion(currentQuestion._id)} className="deleteicon" src={Delete} alt="Delete" /></td>
-                                    </tr>
-                                ))
-                            }
-                        </tbody>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th >ID</th>
+                                    <th >Question</th>
+                                    <th >Choices</th>
+                                    <th >Correct Answer</th>
+                                </tr>
+                            </thead>
+                            <tbody className='tabledata'>
+                                {questionList.length >= 1 &&
+                                    questionList.map((currentQuestion, index) => (
+                                        <tr key={currentQuestion._id} className="tableitems" >
+                                            <td scope="row">{currentQuestion._id}</td>
+                                            <td>{currentQuestion.description}</td>
+                                            <td>{currentQuestion.choices[0]}, {currentQuestion.choices[1]}, {currentQuestion.choices[2]}, {currentQuestion.choices[3]}</td>
+                                            <td>{currentQuestion.answer}</td>
+                                            <td><img onClick={() => { setCurrentIndex(index); setDisplayView(true); }} className="viewicon" src={View} alt="View" /></td>
+                                            <td><img onClick={() => { setCurrentIndex(index); setDisplayEdit(true); }} className="viewicon" src={Edit} alt="Edit" /></td>
+                                            <td><img onClick={deletingQuestion(currentQuestion._id)} className="deleteicon" src={Delete} alt="Delete" /></td>
+                                        </tr>
+                                    ))
+                                }
+                            </tbody>
+                        </table>
                     </section>
                     <button type="button" className="buttonadd" onClick={() => setDisplayAdd(true)}>Add question</button>
                     {questionList[currentIndex] &&
@@ -193,17 +193,18 @@ const Admin = () => {
                             <form action="" className='modaledit'>
                                 <h3>Edit the question, choices and the correct answer</h3>
                                 <div className="input">
-                                    <input type="text" defaultValue={questionList[currentIndex].description} value={description} />
-                                </div>
-                                <div className="input">
-                                    <input type="text" placeholder="Type the choices" name="choices" defaultValue={questionList[currentIndex].choices} value={choices} onChange={e => onChange(e)
+                                    <input type="text" defaultValue={questionList[currentIndex].description} value={description} onChange={e => onChange(e)
                                     } required />
                                 </div>
                                 <div className="input">
-                                    <input type="text" placeholder="Type the correct answer" name="answer" defaultValue={questionList[currentIndex].answer} value={answer} onChange={e => onChange(e)
+                                    <input type="text" placeholder="Type the choices" name="choices" defaultValue={questionList[currentIndex].choices} onChange={e => onChange(e)
                                     } required />
                                 </div>
-                                <button className="buttonsave" type="button" onClick={updatingQuestion(questionList[currentIndex]._id, currentIndex)}>Save</button>
+                                <div className="input">
+                                    <input type="text" placeholder="Type the correct answer" name="answer" defaultValue={questionList[currentIndex].answer} onChange={e => onChange(e)
+                                    } required />
+                                </div>
+                                <button className="buttonsave" type="button" onClick={e => onUpdateing(e)}>Save</button>
                             </form>
                         </Modal>
                     }

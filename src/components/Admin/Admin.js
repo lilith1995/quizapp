@@ -22,6 +22,13 @@ const Admin = () => {
 
     const onChange = e => setQuestionList({ ...questionList, [e.target.name]: e.target.value });
 
+
+    const [editList, setEditList] = useState({
+        description: " ",
+        choices: " ",
+        answer: " "
+    });
+
     // const onChoicesChangeHandler = e => setQuestionList({ ...questionList, choices: e.target.value.split(',') });
 
     const [displayAdd, setDisplayAdd] = useState(false);
@@ -100,27 +107,43 @@ const Admin = () => {
         deleteItem();
     }
 
-    const onUpdateing = async e => {
-        const body = {
+    const onUpdateing = (id, index) => async () => {
+
+        const updateQuestion = {
             description,
             choices,
-            answer
+            answer,
         };
-        try {
 
-            const config = {
-                headers: {
-                    'Content-type': 'application/json'
+        if (updateQuestion.description && updateQuestion.answer && updateQuestion.choices) {
+
+            try {
+                const config = {
+                    headers: {
+                        'Content-type': 'application/json'
+                    }
                 }
+
+                await axios.put('/updateQuestion/' + id, updateQuestion, config)
+
+                let arrQuestions = [];
+
+                for (let i = 0; i < questionList.length; i++) {
+                    arrQuestions[i] = questionList[i];
+                    if (i === index) {
+                        arrQuestions[i].description = updateQuestion.description;
+                        arrQuestions[i].choices = updateQuestion.choices;
+                        arrQuestions[i].answer = updateQuestion.answer;
+                    }
+                }
+
+                setQuestionList(arrQuestions)
+            } catch (e) {
+                console.error("'Something went wrong, please try again!'");
             }
-            const res = await axios.put('/api/admin/updateQuestion/', body, config)
-            setQuestionList(body)
-            history.push('/admin')
-            window.location.reload();
-        } catch (err) {
-            console.error(err.response.data);
+
+            setDisplayEdit(false);
         }
-        setDisplayEdit(false);
     }
 
     const exitToMainPage = () => {
@@ -193,18 +216,24 @@ const Admin = () => {
                             <form action="" className='modaledit'>
                                 <h3>Edit the question, choices and the correct answer</h3>
                                 <div className="input">
-                                    <input type="text" defaultValue={questionList[currentIndex].description} value={description} onChange={e => onChange(e)
-                                    } required />
+                                    <input type="text" defaultValue={questionList[currentIndex].description} onChange={e => setEditList((prev) => ({
+                                        ...prev,
+                                        description: e.target.value,
+                                    }))} required />
                                 </div>
                                 <div className="input">
-                                    <input type="text" placeholder="Type the choices" name="choices" defaultValue={questionList[currentIndex].choices} onChange={e => onChange(e)
-                                    } required />
+                                    <input type="text" placeholder="Type the choices" name="choices" defaultValue={questionList[currentIndex].choices} onChange={e => setEditList((prev) => ({
+                                        ...prev,
+                                        choices: e.target.value,
+                                    }))} required />
                                 </div>
                                 <div className="input">
-                                    <input type="text" placeholder="Type the correct answer" name="answer" defaultValue={questionList[currentIndex].answer} onChange={e => onChange(e)
-                                    } required />
+                                    <input type="text" placeholder="Type the correct answer" name="answer" defaultValue={questionList[currentIndex].answer} onChange={e => setEditList((prev) => ({
+                                        ...prev,
+                                        answer: e.target.value,
+                                    }))} required />
                                 </div>
-                                <button className="buttonsave" type="button" onClick={e => onUpdateing(e)}>Save</button>
+                                <button className="buttonsave" type="button" onClick={onUpdateing(questionList[currentIndex]._id, currentIndex)}>Save</button>
                             </form>
                         </Modal>
                     }

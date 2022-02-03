@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { BrowserRouter, Route } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
@@ -19,15 +19,8 @@ const Admin = () => {
 
     const { description, choices, answer } = questionList;
 
-
     const onChange = e => setQuestionList({ ...questionList, [e.target.name]: e.target.value });
 
-
-    const [editList, setEditList] = useState({
-        description: " ",
-        choices: " ",
-        answer: " "
-    });
 
     // const onChoicesChangeHandler = e => setQuestionList({ ...questionList, choices: e.target.value.split(',') });
 
@@ -35,6 +28,23 @@ const Admin = () => {
     const [displayView, setDisplayView] = useState(false);
     const [displayEdit, setDisplayEdit] = useState(false);
     const [currentIndex, setCurrentIndex] = useState(0);
+
+
+    const [editQuestion, setEditQuestion] = useState({
+        description: "",
+        choices: "",
+        answer: ""
+
+    });
+
+    const onUpdateChange = (e, index) => setEditQuestion({
+        ...{
+            description: questionList[index].description,
+            choices: questionList[index].choices,
+            answer: questionList[index].answer
+        },
+        [e.target.name]: e.target.value
+    });
 
 
     let history = useHistory();
@@ -107,43 +117,29 @@ const Admin = () => {
         deleteItem();
     }
 
-    const onUpdateing = (id, index) => async () => {
 
-        const updateQuestion = {
-            description,
-            choices,
-            answer,
+    const onUpdateing = (id) => async () => {
+
+        let body = {
+            description: editQuestion.description,
+            choices: editQuestion.choices,
+            answer: editQuestion.answer
         };
 
-        if (updateQuestion.description && updateQuestion.answer && updateQuestion.choices) {
-
-            try {
-                const config = {
-                    headers: {
-                        'Content-type': 'application/json'
-                    }
-                }
-
-                await axios.put('/updateQuestion/' + id, updateQuestion, config)
-
-                let arrQuestions = [];
-
-                for (let i = 0; i < questionList.length; i++) {
-                    arrQuestions[i] = questionList[i];
-                    if (i === index) {
-                        arrQuestions[i].description = updateQuestion.description;
-                        arrQuestions[i].choices = updateQuestion.choices;
-                        arrQuestions[i].answer = updateQuestion.answer;
-                    }
-                }
-
-                setQuestionList(arrQuestions)
-            } catch (e) {
-                console.error("'Something went wrong, please try again!'");
+        try {
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
             }
 
-            setDisplayEdit(false);
+            await axios.put('/api/admin/updateQuestion/' + id, body, config)
+            setQuestionList(body);
+        } catch (err) {
+            console.error('Error:' + err);
         }
+
+        setDisplayEdit(false);
     }
 
     const exitToMainPage = () => {
@@ -216,22 +212,13 @@ const Admin = () => {
                             <form action="" className='modaledit'>
                                 <h3>Edit the question, choices and the correct answer</h3>
                                 <div className="input">
-                                    <input type="text" defaultValue={questionList[currentIndex].description} onChange={e => setEditList((prev) => ({
-                                        ...prev,
-                                        description: e.target.value,
-                                    }))} required />
+                                    <input type="text" defaultValue={questionList[currentIndex].description} value={description} onChange={e => onUpdateChange(e, currentIndex)} />
                                 </div>
                                 <div className="input">
-                                    <input type="text" placeholder="Type the choices" name="choices" defaultValue={questionList[currentIndex].choices} onChange={e => setEditList((prev) => ({
-                                        ...prev,
-                                        choices: e.target.value,
-                                    }))} required />
+                                    <input type="text" placeholder="Type the choices" name="choices" defaultValue={questionList[currentIndex].choices} value={choices} onChange={e => onUpdateChange(e, currentIndex)} />
                                 </div>
                                 <div className="input">
-                                    <input type="text" placeholder="Type the correct answer" name="answer" defaultValue={questionList[currentIndex].answer} onChange={e => setEditList((prev) => ({
-                                        ...prev,
-                                        answer: e.target.value,
-                                    }))} required />
+                                    <input type="text" placeholder="Type the correct answer" name="answer" defaultValue={questionList[currentIndex].answer} value={answer} onChange={e => onUpdateChange(e, currentIndex)} />
                                 </div>
                                 <button className="buttonsave" type="button" onClick={onUpdateing(questionList[currentIndex]._id, currentIndex)}>Save</button>
                             </form>

@@ -36,7 +36,7 @@ const Questions = ({
     }
     onAnswerUpdate(prevState => [...prevState, { q: data.description, a: checked }]);
     setChecked('');
-    setProgress(percentRange < 100 ? percentRange + numberOfQuestions - 2 : 100)
+    setProgress(percentRange < 100 ? percentRange + 100 / numberOfQuestions : 100)
     if (activeQuestion < numberOfQuestions - 1) {
       onSetActiveQuestion(activeQuestion + 1);
     } else {

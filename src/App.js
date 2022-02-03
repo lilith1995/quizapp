@@ -14,7 +14,7 @@ const App = () => {
       <Switch>
         <Route exact path="/auth" component={Auth} />
         <ProtectedRoute exact path='/' component={Quiz} />
-        <Route exact path="/admin" component={Admin} />
+        <ProtectedRoute role="admin" exact path="/admin" component={Admin} />
       </Switch>
     </BrowserRouter >
   );

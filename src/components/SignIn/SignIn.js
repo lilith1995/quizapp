@@ -56,7 +56,7 @@ const SignIn = () => {
                 const body = JSON.stringify(newUser)
                 const res = await axios.post('/api/users/login', body, config)
                 console.log(res.data);
-                localStorage.setItem("isAuthenticated", "true");
+                localStorage.setItem("isAuthenticated", res.data.token);
                 history.push('/');
             } catch (err) {
                 console.error(err.response.data);

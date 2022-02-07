@@ -1,11 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
-import ValidationChecker from "../../util/validation";
+import AuthContext from "../context/AuthProvider";
 import "../../App.scss";
 
 const SignIn = () => {
     const history = useHistory();
+
+    const userRef = useRef();
+    const errRef = useRef();
+
+    const [errMsg, setErrMsg] = useState('');
 
     const [user, setUser] = useState({
         email: "",
@@ -16,31 +21,18 @@ const SignIn = () => {
 
     const onChange = e => setUser({ ...user, [e.target.name]: e.target.value });
 
-    const [errorText, setError] = useState([]);
+    useEffect(() => {
+        userRef.current.focus();
+    }, [])
 
-    const validErrors = (type) => {
-        switch (type) {
-            case "email" ||
-                "password":
-                setError("Please check all the fields");
-                break;
-            case "email":
-                setError("Email is invalid");
-                break
-            case "password":
-                setError("Password is invalid");
-                break
-            default: ;
-        }
-    }
+    useEffect(() => {
+        setErrMsg('');
+    }, [user.email, user.password])
+
+
     const onSubmit = async e => {
         e.preventDefault();
-        const validReg = ValidationChecker(user, "signin");
-        console.log(validReg.error)
-        validReg.error.forEach(type => {
-            validErrors(type);
-        })
-        if (validReg.isValid) {
+        {
             const newUser = {
                 email,
                 password
@@ -60,11 +52,12 @@ const SignIn = () => {
                 history.push('/');
             } catch (err) {
                 console.error(err.response.data);
-                if (password) {
-                    setError("Password is incorrect")
-                }
-                if (email) {
-                    setError("User does not exists");
+                if (!email && !password) {
+                    setErrMsg("Please check all the fields")
+                } else if (password) {
+                    setErrMsg("Invalid password")
+                } else if (email) {
+                    setErrMsg("Unothorized");
                 }
             }
         }
@@ -73,14 +66,13 @@ const SignIn = () => {
     return (
         <div className="form-comp cfb" >
             <h1>What's up!</h1>
-            <form className="sign-up-form cfb" onSubmit={validErrors}>
-                <div className="messages">
-                    {errorText}
-                </div>
+            <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
+            <form className="sign-up-form cfb">
                 <label>
                     Email:
                     <br />
-                    <input type="email" name="email" value={email}
+                    <input type="email" name="email" value={email} ref={userRef}
+                        autoComplete="off"
                         onChange={e => onChange(e)
                         }
                         required />

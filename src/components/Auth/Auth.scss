@@ -177,7 +177,8 @@ button:hover {
 }
 
 .errmsg {
-    background-color: lightpink;
+     border: 1px solid #860e0e;
+     border-radius: 0.5rem;
     color: firebrick;
     font-weight: bold;
     padding: 0.5rem;

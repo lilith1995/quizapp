@@ -143,7 +143,7 @@ const Admin = () => {
     }
 
     const exitToMainPage = () => {
-        history.push({ pathname: '/auth' });
+        history.push({ pathname: '/' });
     }
 
     return (

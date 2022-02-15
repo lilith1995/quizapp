@@ -49,6 +49,9 @@ const Quiz = () => {
 
     return (
         <div className="container">
+            <a href="/admin" className="adminpage">
+                <button className="buttonexit">Admin Page</button>
+            </a>
             {step === 1 && <Home onQuizStart={quizStartHandler} />}
             {step === 2 && (
                 <Questions
@@ -76,6 +79,7 @@ const Quiz = () => {
                     data={data}
                 />
             )}
+
             <button className="buttonexit" onClick={handleExit}>
                 Log Out
             </button>

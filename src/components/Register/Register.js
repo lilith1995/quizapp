@@ -128,7 +128,6 @@ const Register = () => {
                             <input
                                 type="text"
                                 ref={userRef}
-                                autoComplete="off"
                                 name="name"
                                 value={name}
                                 aria-invalid={validName ? "false" : "true"}
@@ -155,7 +154,6 @@ const Register = () => {
                                 type="email"
                                 name="email"
                                 ref={userRef}
-                                autoComplete="off"
                                 value={email}
                                 aria-invalid={validEml ? "false" : "true"}
                                 aria-describedby="uidnote"

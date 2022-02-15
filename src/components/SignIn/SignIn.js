@@ -72,7 +72,6 @@ const SignIn = () => {
                     Email:
                     <br />
                     <input type="email" name="email" value={email} ref={userRef}
-                        autoComplete="off"
                         onChange={e => onChange(e)
                         }
                         required />

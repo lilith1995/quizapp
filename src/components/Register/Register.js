@@ -194,8 +194,8 @@ const Register = () => {
                         </label>
                         <label>
                             Confirm Password:
-                            <FontAwesomeIcon icon={faCheck} className={validPwd ? "valid" : "hide"} />
-                            <FontAwesomeIcon icon={faTimes} className={validPwd || !regUser.password2 ? "hide" : "invalid"} />
+                            <FontAwesomeIcon icon={faCheck} className={validPwd2 ? "valid" : "hide"} />
+                            <FontAwesomeIcon icon={faTimes} className={validPwd2 || !regUser.password2 ? "hide" : "invalid"} />
                             <br />
                             <input
                                 type="password"
@@ -208,11 +208,9 @@ const Register = () => {
                                 onChange={e => onChange(e)
                                 } required />
 
-                            <p id="pwdnote" className={pwdFocus2 && !validPwd2 ? "instructions" : "offscreen"}>
+                            <p id="confirmnote" className={pwdFocus2 && !validPwd2 ? "instructions" : "offscreen"}>
                                 <FontAwesomeIcon icon={faInfoCircle} />
-                                8 to 24 characters.<br />
-                                Must include uppercase and lowercase letters, a number and a special character.<br />
-                                Allowed special characters: <span aria-label="exclamation mark">!</span> <span aria-label="at symbol">@</span> <span aria-label="hashtag">#</span> <span aria-label="dollar sign">$</span> <span aria-label="percent">%</span>
+                                Must match the first password input field.
                             </p>
                         </label>
                         <button className="buttonauth" title="Sign in!" onClick={e => onSubmit(e)} >Submit</button>

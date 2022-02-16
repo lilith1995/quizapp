@@ -194,7 +194,7 @@ const Register = () => {
                         </label>
                         <label>
                             Confirm Password:
-                            <FontAwesomeIcon icon={faCheck} className={validPwd2 ? "valid" : "hide"} />
+                            <FontAwesomeIcon icon={faCheck} className={validPwd2 && validPwd ? "valid" : "hide"} />
                             <FontAwesomeIcon icon={faTimes} className={validPwd2 || !regUser.password2 ? "hide" : "invalid"} />
                             <br />
                             <input

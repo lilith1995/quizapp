@@ -204,7 +204,7 @@ const Admin = () => {
                                 <input type="text" placeholder="Type the correct answer" name="answer" value={answer || ""} onChange={e => onChange(e)
                                 } required />
                             </div>
-                            <button onClick={e => onAdding(e)} className="buttonssaveadding" type="button">Save</button>
+                            <button disabled={!description || !choices || !answer ? true : false} onClick={e => onAdding(e)} className="buttonssaveadding" type="button">Save</button>
                         </form>
                     </Modal>
                     {questionList[currentIndex] &&
@@ -220,7 +220,7 @@ const Admin = () => {
                                 <div className="input">
                                     <input type="text" placeholder="Type the correct answer" name="answer" defaultValue={questionList[currentIndex].answer} value={answer} onChange={e => onUpdateChange(e, currentIndex)} />
                                 </div>
-                                <button className="buttonsave" type="button" onClick={onUpdateing(questionList[currentIndex]._id, currentIndex)}>Save</button>
+                                <button disabled={!description || !choices || !answer ? true : false} className="buttonsave" type="button" onClick={onUpdateing(questionList[currentIndex]._id, currentIndex)}>Save</button>
                             </form>
                         </Modal>
                     }

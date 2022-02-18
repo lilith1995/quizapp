@@ -1,18 +1,20 @@
 import React from "react";
 import { Redirect, Route } from "react-router-dom";
 
-function ProtectedRoute({ component: Component, ...restOfProps }) {
-    const isAuthenticated = localStorage.getItem("isAuthenticated");
-    console.log("this", isAuthenticated);
-
-    return (
-        <Route
-            {...restOfProps}
-            render={(props) =>
-                isAuthenticated ? <Component {...props} /> : <Redirect to="/auth" />
-            }
-        />
-    );
+const checkAuth = () => {
+    const token = sessionStorage.getItem('token');
+    return !!token
 }
+
+const ProtectedRoute = ({ component: Component, ...rest }) => (
+    <Route {...rest} render={props => (
+        checkAuth() ? (
+            <Component {...props} />
+        ) : (
+            <Redirect to={{ pathname: '/auth' }} />
+
+        )
+    )} />
+)
 
 export default ProtectedRoute;

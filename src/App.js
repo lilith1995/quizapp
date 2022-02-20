@@ -9,11 +9,15 @@ import Quiz from "./components/Quiz/Quiz";
 
 
 import './App.scss';
+import { faLessThan } from '@fortawesome/free-solid-svg-icons';
 
 
 function App() {
 
-  const [authState, setAuthState] = useState(false);
+  const [authState, setAuthState] = useState({
+    name: "",
+    status: false
+  });
 
   useEffect(() => {
     axios.get('/api/auth', {
@@ -21,27 +25,30 @@ function App() {
       accessToken: localStorage.getItem('accessToken'),
     }}).then((response) => {
       if (response.data.error) {
-        setAuthState(false)
+        setAuthState({...authState, status: false})
       } else {
-        setAuthState(true);
+        setAuthState({
+          name: response.data.name,
+          status: true
+        });
       }
     })
   }, []);
 
+  const handleExit = () => {
+    localStorage.clear();
+    setAuthState({ ...authState, status: false })
+  };
 
   return (
     <BrowserRouter>
       <AuthContext.Provider value={{ authState, setAuthState }}>
         <Switch>
           <Route path="/auth">
-            {authState ? <Redirect to='/' /> : <Auth />}
+            {!authState.status ? <Auth /> : <Redirect to='/' />}
           </Route>
-          <Route path="/">
-            {authState ? <Quiz /> : <Redirect to='/auth' />}
-          </Route>
-          <Route path="/admin">
-            {authState ? <Admin /> : <Redirect to='/auth' />}
-          </Route>
+          <Route path="/" exact component={Quiz} />
+          <Route path="/admin" exact component={Admin} />
         </Switch>
       </AuthContext.Provider>
     </BrowserRouter >

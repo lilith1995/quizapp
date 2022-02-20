@@ -2,8 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { BrowserRouter, Route } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
-import Modal from "../Modal/Modal";
 
+import Modal from "../Modal/Modal";
 import View from "../../assets/viewicon.png";
 import Edit from "../../assets/edit.png";
 import Delete from "../../assets/deleteicon.png";

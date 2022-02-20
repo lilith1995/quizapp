@@ -1,8 +1,10 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
+
+import { AuthContext } from "../../helpers/AuthContext";
 import "../../App.scss";
 
 
@@ -11,6 +13,8 @@ const EML_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
 const SignIn = () => {
     const history = useHistory();
+
+    const { setAuthState } = useContext(AuthContext);
 
     const userRef = useRef();
     const errRef = useRef();
@@ -74,7 +78,8 @@ const SignIn = () => {
                 const body = JSON.stringify(newUser)
                 const res = await axios.post('/api/auth', body, config)
                 console.log(res.data);
-                sessionStorage.setItem('token', res.data.token);
+                localStorage.setItem('accesstoken', res.data.token);
+                setAuthState(true);
                 history.push('/');
             } catch (err) {
                 console.error(err.response.data);

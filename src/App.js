@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import axios from 'axios';
+import { useHistory } from "react-router-dom";
 
 import { AuthContext } from './helpers/AuthContext';
 import Admin from "./components/Admin/Admin";
@@ -9,37 +10,44 @@ import Quiz from "./components/Quiz/Quiz";
 
 
 import './App.scss';
-import { faLessThan } from '@fortawesome/free-solid-svg-icons';
-
 
 function App() {
 
+  const history = useHistory();
+
   const [authState, setAuthState] = useState({
     name: "",
+    isAdmin: false,
     status: false
   });
+  const token = localStorage.getItem('accessToken');
+  console.log(token);
+
+  const handlerequest = async () => {
+    try {
+
+      const res = await axios.get('/api/auth', {
+        headers: {
+          "x-auth-token": token,
+        }
+      })
+      console.log(res, "res");
+      setAuthState({
+        ...authState, isAdmin: res.data.isAdmin
+      });
+      console.log(authState)
+    } catch (err) {
+      console.log(err, "err")
+      setAuthState({ ...authState, status: false })
+
+    }
+  }
 
   useEffect(() => {
-    axios.get('/api/auth', {
-      headers: {
-      accessToken: localStorage.getItem('accessToken'),
-    }}).then((response) => {
-      if (response.data.error) {
-        setAuthState({...authState, status: false})
-      } else {
-        setAuthState({
-          name: response.data.name,
-          status: true
-        });
-      }
-    })
+    handlerequest();
   }, []);
 
-  const handleExit = () => {
-    localStorage.clear();
-    setAuthState({ ...authState, status: false })
-  };
-
+  console.log(authState.isAdmin);
   return (
     <BrowserRouter>
       <AuthContext.Provider value={{ authState, setAuthState }}>
@@ -48,7 +56,9 @@ function App() {
             {!authState.status ? <Auth /> : <Redirect to='/' />}
           </Route>
           <Route path="/" exact component={Quiz} />
-          <Route path="/admin" exact component={Admin} />
+          <Route path="/admin">
+            {authState.isAdmin ? <Admin /> : () => <Redirect to='/' />}
+          </Route>
         </Switch>
       </AuthContext.Provider>
     </BrowserRouter >

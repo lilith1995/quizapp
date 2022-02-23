@@ -4,6 +4,7 @@ import Questions from "./Questions";
 import End from "./End";
 import Answers from "./Answers";
 
+import { Link } from "react-router-dom";
 import "./Quiz.scss";
 
 const Quiz = () => {
@@ -50,7 +51,8 @@ const Quiz = () => {
     return (
         <div className="container">
             <a href="/admin" className="adminpage">
-                <button className="buttonexit">Admin Page</button>
+                <Link to='/admin'> <button className="buttonexit">Admin Page</button></Link>
+
             </a>
             {step === 1 && <Home onQuizStart={quizStartHandler} />}
             {step === 2 && (

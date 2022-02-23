@@ -77,10 +77,9 @@ const SignIn = () => {
                 }
                 const body = JSON.stringify(newUser)
                 const res = await axios.post('/api/auth', body, config)
-                console.log(res.data);
-                localStorage.setItem("accessToken", res.data);
-                setAuthState(true);
-                history.push('/');
+                console.log(res.data, "sign in");
+                localStorage.setItem("accessToken", res.data.token);
+                history.push('/admin');
             } catch (err) {
                 console.error(err.response.data);
                 if (!email && !password) {

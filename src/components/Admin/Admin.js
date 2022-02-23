@@ -148,8 +148,6 @@ const Admin = () => {
 
     return (
         <div className='adminplace'>
-            <BrowserRouter>
-                <Route path="/admin">
                     <button type="button" className="buttonquit" onClick={exitToMainPage}>Exit</button>
                     <h2>Here you can see all the questions, edit and delete them or add the new one</h2>
                     <section className="quiztable">
@@ -224,8 +222,6 @@ const Admin = () => {
                             </form>
                         </Modal>
                     }
-                </Route>
-            </BrowserRouter>
         </div>
     );
 }

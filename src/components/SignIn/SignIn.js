@@ -79,7 +79,7 @@ const SignIn = () => {
                 const res = await axios.post('/api/auth', body, config)
                 console.log(res.data, "sign in");
                 localStorage.setItem("accessToken", res.data.token);
-                history.push('/admin');
+                history.push('/');
             } catch (err) {
                 console.error(err.response.data);
                 if (!email && !password) {

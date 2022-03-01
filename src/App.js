@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
@@ -47,7 +47,7 @@ function App() {
     handlerequest();
   }, []);
 
-  console.log(authState.isAdmin);
+  console.log("isAdmin", authState.isAdmin);
   return (
     <BrowserRouter>
       <AuthContext.Provider value={{ authState, setAuthState }}>
